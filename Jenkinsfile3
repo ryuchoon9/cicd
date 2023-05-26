@@ -3,14 +3,14 @@ node {
     checkout scm
   }
   stage('======== Build image ========') {
-    sh "git switch main"
+    sh "git switch yaml"
     sh "git config --global user.email 'admin@example.com'"
     sh "git config --global user.name 'admin'"
-    sh "git pull origin main"
-    app = docker.build("test/nginx")
+    sh "git pull origin yaml"
+    app = docker.build("shryu1/test")
   }
   stage('======== Push image ========') {
-    docker.withRegistry('https://223.130.133.184', 'harbor') {
+    docker.withRegistry('', 'shryu') {
        app.push("${env.BUILD_NUMBER}")
        app.push("latest")
     }
@@ -18,7 +18,7 @@ node {
   stage('======== Update YAML file ========') {
     sh "git switch yaml"
     sh "git pull origin yaml"
-    sh "sed -i s%test/nginx:.*%test/nginx:${env.BUILD_NUMBER}%g nginx.yaml"
+    sh "sed -i s%shryu1/test:.*%shryu1/test:${env.BUILD_NUMBER}%g nginx.yaml"
     sh "cat nginx.yaml | grep image:"
     sh "git add ."
     sh "git commit -m 'image tag update ${env.BUILD_NUMBER}'"
