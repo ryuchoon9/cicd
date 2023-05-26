@@ -4,8 +4,6 @@ node {
   }
   stage('======== Build image ========') {
     sh "git switch yaml"
-    sh "git config --global user.email 'admin@example.com'"
-    sh "git config --global user.name 'admin'"
     sh "git pull origin yaml"
     app = docker.build("shryu1/test")
   }
