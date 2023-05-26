@@ -7,10 +7,12 @@ metadata:
   name: nginx
 spec:
   containers:
-  - image: 223.130.133.184/test/nginx:lts
+  - image: shryu1/test:latest
     name: nginx
     ports:
     - containerPort: 80
+  imagePullSecrets:
+  - name: shryu
 ---
 apiVersion: v1
 kind: Service
