@@ -8,7 +8,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /index.html
+      - path: /aejin
         pathType: Prefix
         backend:
           service:
