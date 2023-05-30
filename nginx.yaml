@@ -7,7 +7,7 @@ metadata:
   name: nginx
 spec:
   containers:
-  - image: shryu1/test:33
+  - image: shryu1/test:34
     name: nginx
     ports:
     - containerPort: 80
