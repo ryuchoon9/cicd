@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nas-storage
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
+  storageClassName: nks-nas-csi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    cloit: test
+    app: test-was1
+  name: test-was1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: test-was1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        cloit: test
+        app: test-was1
+    spec:
+      containers:
+      - image: docker.cloit.com/waslist:0.8.1
+        name: was1
+        command: ["/bin/sh","-c"]
+        args: ["printf '%s' $API_TOKEN > $SA_TOKEN_FILE && catalina.sh run"] 
+        ports:
+          - containerPort: 8080
+            name: http
+        volumeMounts:
+          - mountPath: /usr/local/tomcat/conf/server.xml
+            subPath: server.xml
+            readOnly: true
+            name: serverxml
+          - mountPath: /usr/local/tomcat/webapps
+            name: nas-storage
+        env:
+        - name: SA_TOKEN_FILE
+          value: /usr/local/tokenFile
+        - name: KUBERNETES_NAMESPACE
+          value: default
+        - name: API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: tomcat-secret
+              key: "token"
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 1200m
+            memory: 512Mi
+          requests:
+            cpu: 200m
+            memory: 256Mi
+      volumes:
+        - name: serverxml
+          configMap:
+            name: tomcat-config
+        - name: nas-storage
+          persistentVolumeClaim:
+            claimName: nas-storage
+      imagePullSecrets:
+      - name: regcred
