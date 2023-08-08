@@ -17,6 +17,7 @@ metadata:
   labels:
     cloit: test
     app: test-was1
+    shryu: shryu
   name: test-was1
 spec:
   replicas: 2
