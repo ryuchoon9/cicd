@@ -82,7 +82,7 @@ sudo sysctl -p
 
 # Initialize Kubernetes cluster
 export IP=$(ifconfig eth0 | awk '/inet / {print $2}')
-sudo kubeadm init --cri-socket=/var/run/crio/crio.sock --ignore-preflight-errors=all --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=$IP
+sudo kubeadm init --cri-socket=/var/run/crio/crio.sock --ignore-preflight-errors=all --pod-network-cidr=172.16.0.0/16 --apiserver-advertise-address=$IP
 
 # Create the kube config directory in the current user's home directory
 sudo mkdir -p $HOME/.kube 
