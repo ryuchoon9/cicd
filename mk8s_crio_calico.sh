@@ -102,6 +102,6 @@ sudo apt-get install bash-completion
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 echo "alias k=kubectl" >> ~/.bashrc
 echo "complete -F __start_kubectl k" >> ~/.bashrc
-sleep 3s
+sleep 5s
 # Source ~/.bashrc
 source ~/.bashrc
