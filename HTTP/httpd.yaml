@@ -1,3 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: httpd
+spec: {}
+status: {}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,6 +13,7 @@ metadata:
   labels:
     app: httpd
   name: httpd
+  namespace: httpd
 spec:
   replicas: 1
   selector:
@@ -28,3 +37,19 @@ spec:
       nodeSelector:
         key: worker1
 status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: httpd
+  name: httpd-svc
+  namespace: httpd
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: httpd
+  type: ClusterIP
