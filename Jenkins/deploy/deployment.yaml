@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jenkins
-  namespace: devops-tools
+  namespace: jenkins
 spec:
   replicas: 1
   selector:
@@ -51,25 +51,9 @@ spec:
           volumeMounts:
             - name: jenkins-data
               mountPath: /var/jenkins_home         
-            - name: docker
-              mountPath: /usr/bin/docker
-            - name: socket
-              mountPath: /var/run/docker.sock
-            - name: json
-              mountPath: /etc/docker/daemon.json
+      nodeSelector:
+        key: worker3
       volumes:
         - name: jenkins-data
           persistentVolumeClaim:
               claimName: jenkins-pv-claim
-        - name: docker
-          hostPath:
-            path: /usr/bin/docker
-            type: File
-        - name: socket
-          hostPath:
-            path: /var/run/docker.sock
-            type: Socket
-        - name: json
-          hostPath:
-            path: /etc/docker/daemon.json
-            type: File

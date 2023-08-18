@@ -34,8 +34,8 @@ spec:
         resources: {}
       imagePullSecrets:
       - name: docker
-      nodeSelector:
-        key: worker2
+#     nodeSelector:
+#       key: worker2
       restartPolicy: Always
 ---
 apiVersion: v1

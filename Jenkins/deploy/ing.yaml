@@ -3,17 +3,17 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-  name: httpd-ingress
-  namespace: httpd
+  name: jenkins-ingress
+  namespace: jenkins
 spec:
   ingressClassName: nginx
   rules:
-  - host: httpd.ingress.com
+  - host: jenkins.ingress.com
     http:
       paths:
       - backend:
           service:
-            name: httpd-svc
+            name: jenkins-service
             port:
               number: 80
         path: /

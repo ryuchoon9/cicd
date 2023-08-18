@@ -3,17 +3,17 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-  name: httpd-ingress
-  namespace: httpd
+  name: argocd-ingress
+  namespace: argocd
 spec:
   ingressClassName: nginx
   rules:
-  - host: httpd.ingress.com
+  - host: argocd.ingress.com
     http:
       paths:
       - backend:
           service:
-            name: httpd-svc
+            name: argocd-server
             port:
               number: 80
         path: /
