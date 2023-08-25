@@ -57,6 +57,8 @@ spec:
               mountPath: /var/run/docker.sock
             - name: json
               mountPath: /etc/docker/daemon.json
+      nodeSelector:
+	key: worker3
       volumes:
         - name: jenkins-data
           persistentVolumeClaim:
