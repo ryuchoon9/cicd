@@ -1,0 +1,18 @@
+[
+	{
+		"region_code": "KR",
+		"region_no": "",
+		"zone_code": "KR-2",
+		"zone_description": "평촌 zone",
+		"zone_name": "KR-2",
+		"zone_no": ""
+	},
+	{
+		"region_code": "KR",
+		"region_no": "",
+		"zone_code": "KR-1",
+		"zone_description": "가산 zone",
+		"zone_name": "KR-1",
+		"zone_no": ""
+	}
+]
